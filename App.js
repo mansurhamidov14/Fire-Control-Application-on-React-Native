@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Button, Header, Icon } from 'react-native-elements'
 
-const LeftComponent = () => {
+const LeftComponent = (props) => {
   return (
     <TouchableOpacity
-      onPress={()=>{console.log(this.props.name)}}
+      onPress={()=>{console.log(props.name)}}
     >
       <Icon
         name='menu'
@@ -16,18 +16,23 @@ const LeftComponent = () => {
 }
 
 export default class App extends React.Component {
-
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ''
+    }
+  }
+  
   render() {
     return (
       <View>
         <Header
-          leftComponent={<LeftComponent name={this.name}/>}
+          leftComponent={<LeftComponent name={this.state.name}/>}
           centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
           rightComponent={{ icon: 'home', color: '#fff' }}
         />
         <FormLabel>Name</FormLabel>
-        <FormInput placeholder="hello" ref={node => this.name = node}/>
+        <FormInput placeholder="hello" onChangeText={text => this.setState({name:text})}/>
         <FormValidationMessage></FormValidationMessage>
       </View>
     );
