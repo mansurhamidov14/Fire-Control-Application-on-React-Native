@@ -1,14 +1,34 @@
 import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, Button, Header, Icon } from 'react-native-elements'
+
+const LeftComponent = () => {
+  return (
+    <TouchableOpacity
+      onPress={()=>{console.log(this.props.name)}}
+    >
+      <Icon
+        name='menu'
+        color="#ffffff"
+      />
+    </TouchableOpacity>
+  );
+}
 
 export default class App extends React.Component {
+
+
   render() {
     return (
-      <View style={styles.container}>
+      <View>
+        <Header
+          leftComponent={<LeftComponent name={this.name}/>}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+        />
         <FormLabel>Name</FormLabel>
-        <FormInput onChangeText={someFunction}/>
-        <FormValidationMessage>Error message</FormValidationMessage>
+        <FormInput placeholder="hello" ref={node => this.name = node}/>
+        <FormValidationMessage></FormValidationMessage>
       </View>
     );
   }
@@ -16,9 +36,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
